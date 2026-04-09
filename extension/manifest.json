@@ -1,0 +1,51 @@
+{
+    "manifest_version": 3,
+    "name": "Lead Finder by Emailchaser",
+    "version": "1.1.0",
+    "description": "Companion that sends your Sales Navigator search context to your Emailchaser account to enrich and export leads.",
+    "icons": {
+        "16": "icon16.png",
+        "32": "icon32.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "permissions": [
+        "webRequest",
+        "storage"
+    ],
+    "host_permissions": [
+        "*://www.linkedin.com/sales-api/*",
+        "*://www.linkedin.com/sales/*",
+        "*://linkedin.com/sales/*",
+        "*://freeipapi.com/api/json"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.linkedin.com/sales/*",
+                "https://linkedin.com/sales/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "externally_connectable": {
+        "matches": [
+            "*://*.emailchaser.com/*"
+        ]
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icon16.png",
+            "32": "icon32.png",
+            "48": "icon48.png",
+            "128": "icon128.png"
+        },
+        "default_title": "Lead Finder by Emailchaser"
+    }
+}

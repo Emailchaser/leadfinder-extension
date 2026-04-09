@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Lead Finder by Emailchaser</title>
+    <style>
+        body {
+            width: 260px;
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            color: #111;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .title {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .section {
+            padding: 10px 12px;
+        }
+
+        .steps {
+            margin: 8px 0 0;
+            padding-left: 16px;
+        }
+
+        .steps li {
+            margin: 6px 0;
+            font-size: 13px;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .link {
+            display: block;
+            padding: 10px 12px;
+            text-decoration: none;
+            color: #374151;
+            font-size: 14px;
+            border-bottom: 1px solid #e5e7eb;
+            /* thin line below the link */
+        }
+
+        .link:hover {
+            background: #f3f4f6;
+        }
+
+        details {
+            margin-top: 6px;
+        }
+
+        details summary {
+            cursor: pointer;
+            font-size: 12px;
+            color: #374151;
+        }
+
+        details p {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 6px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <img src="icon128.png" alt="Emailchaser logo" />
+        <div>
+            <h1 class="title">Emailchaser</h1>
+            <p class="subtitle">Lead Finder</p>
+        </div>
+    </div>
+
+    <a class="link" href="https://www.linkedin.com/sales/search/people?viewAllFilters=true" target="_blank"
+        rel="noopener">
+        Open Sales Navigator lead search
+    </a>
+
+    <div class="section">
+        <strong style="font-size:13px;">How it works</strong>
+        <ol class="steps">
+            <li>Open LinkedIn Sales Navigator and run a search.</li>
+            <li>Click <em>"Export with Emailchaser"</em> on the page (the button we add).</li>
+            <li>Your Emailchaser account will open to process that search context.</li>
+        </ol>
+        <p class="note">
+            This extension saves the current Sales Navigator search context locally and then opens the
+            Emailchaser web app where your account performs enrichment and export.
+            The extension itself does not find emails or generate CSV files.
+        </p>
+
+        <details>
+            <summary>Requirements & permissions</summary>
+            <p>Requires an Emailchaser account and access to LinkedIn Sales Navigator.</p>
+            <p>Uses <code>storage</code> to hold the chosen search context and <code>webRequest</code>/host permissions
+                to detect the Sales Navigator request you export.</p>
+        </details>
+
+        <details>
+            <summary>Disclaimer</summary>
+            <p>Not affiliated with or endorsed by LinkedIn. LinkedIn® is a registered trademark of its owner.</p>
+        </details>
+    </div>
+</body>
+
+</html>
