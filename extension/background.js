@@ -1,6 +1,6 @@
 // --- Mixpanel analytics (anonymous, extension-scoped) ---
 // Public Mixpanel project token (browser tokens are safe to expose in clients).
-const MIXPANEL_TOKEN = "db71a24a899cbc4f74f913ce7ecebff6";
+const MIXPANEL_TOKEN = "f82959add99d36dd92f79b83bf3c16b2";
 
 function getDistinctId() {
   return new Promise((resolve) => {
