@@ -1,3 +1,57 @@
+// --- Mixpanel analytics (anonymous, extension-scoped) ---
+// Public Mixpanel project token (browser tokens are safe to expose in clients).
+const MIXPANEL_TOKEN = "db71a24a899cbc4f74f913ce7ecebff6";
+
+function getDistinctId() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get("mp_distinct_id", (result) => {
+      let id = result && result.mp_distinct_id;
+      if (!id) {
+        id = "ext_" + crypto.randomUUID();
+        chrome.storage.local.set({ mp_distinct_id: id });
+      }
+      resolve(id);
+    });
+  });
+}
+
+async function trackMixpanel(eventName, props = {}) {
+  try {
+    const distinctId = await getDistinctId();
+    const version = chrome.runtime.getManifest().version;
+    const payload = [
+      {
+        event: eventName,
+        properties: {
+          token: MIXPANEL_TOKEN,
+          distinct_id: distinctId,
+          $insert_id: crypto.randomUUID(),
+          extension_version: version,
+          surface: "leadfinder_extension",
+          ...props,
+        },
+      },
+    ];
+    await fetch("https://api.mixpanel.com/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  } catch (error) {
+    console.error("Mixpanel track failed", error);
+  }
+}
+
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === "install") {
+    trackMixpanel("Extension Installed");
+  } else if (details.reason === "update") {
+    trackMixpanel("Extension Updated", {
+      previous_version: details.previousVersion,
+    });
+  }
+});
+
 try {
   chrome.webRequest.onSendHeaders.addListener(
     function (details) {
@@ -98,6 +152,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       tabId: sender.tab.id,
       extensionId: chrome.runtime.id,
     });
+  }
+
+  if (message.action === "TRACK") {
+    trackMixpanel(message.event, message.props || {});
   }
 });
 
