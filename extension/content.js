@@ -161,6 +161,12 @@ function createButton(tabID, extensionID, mode = "extract", jobId = null) {
         const mode = button.dataset.mode || "extract";
         const jobId = button.dataset.jobId || null;
 
+        chrome.runtime.sendMessage({
+          action: "TRACK",
+          event: "Lead Export Clicked",
+          props: { mode, has_job: jobId !== null },
+        });
+
         if (mode === "resume" && jobId) {
           targetUrl += `&mode=resume&job=${encodeURIComponent(jobId)}`;
         }
